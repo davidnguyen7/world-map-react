@@ -1,0 +1,20 @@
+name: Code Style Pass
+on: [pull_request, push]
+jobs:
+  prettier:
+    runs-on: "ubuntu-latest"
+    name: "Prettier"
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: |
+            node_modules
+          key: ${{runner.os}}-${{hashFiles('package-lock.json')}}
+      - name: "Install dependencies"
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - run: npm run prettier-check

@@ -1,7 +1,9 @@
 {
   "scripts": {
     "build": "NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --mode=development"
+    "dev": "webpack-dev-server --mode=development",
+    "prettier-check": "prettier . --check",
+    "prettier-fix": "prettier . --write"
   },
   "author": "",
   "private": true,
