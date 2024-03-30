@@ -11,13 +11,13 @@ export const WorldMapInfo = () => {
 
   return (
     <motion.div
-      initial={{opacity: 0,}}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="world-map info"
     >
       <h1>{selected}</h1>
 
-      {error ? (<p>Whoops! Couldn't fetch any information on this.</p>) : null}
+      {error ? <p>Whoops! Couldn't fetch any information on this.</p> : null}
       {info ? (
         <>
           <p>{info}</p>

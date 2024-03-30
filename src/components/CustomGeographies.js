@@ -18,10 +18,12 @@ export const CustomGeographies = ({ geography }) => {
   const { setNames, selected, setSelected } = useContext(WorldMapContext);
 
   const geographyRef = React.useRef();
-  const [geographyX, geographyY, geographyWidth, geographyHeight] = useSvgBBox(geographyRef);
+  const [geographyX, geographyY, geographyWidth, geographyHeight] =
+    useSvgBBox(geographyRef);
 
   const [selectedRef, setSelectedRef] = React.useState();
-  const [selectedRefX, selectedRefY, selectedRefWidth, selectedRefHeight] = useSvgBBox(selectedRef);
+  const [selectedRefX, selectedRefY, selectedRefWidth, selectedRefHeight] =
+    useSvgBBox(selectedRef);
 
   useEffect(() => {
     if (!geographies) return;
@@ -35,21 +37,21 @@ export const CustomGeographies = ({ geography }) => {
   // centering consistent with scale
   const animation = {
     x: selectedRef
-      ? (geographyWidth / 2) + (geographyX - selectedRefX) - (selectedRefWidth / 2)
+      ? geographyWidth / 2 + (geographyX - selectedRefX) - selectedRefWidth / 2
       : 0,
     y: selectedRef
-      ? (geographyHeight / 2) + (geographyY - selectedRefY) - (selectedRefHeight / 2) - 20
+      ? geographyHeight / 2 +
+        (geographyY - selectedRefY) -
+        selectedRefHeight / 2 -
+        20
       : 0,
     scale: 1,
   };
 
   const onGeographyClick = useCallback((geography) => {
     const selectedName = geography.properties?.NAME_EN;
-    setSelected(name => name !== selectedName 
-      ? selectedName ?? "" 
-      : ""
-    );
-  }, [])
+    setSelected((name) => (name !== selectedName ? selectedName ?? "" : ""));
+  }, []);
 
   return (
     <motion.g
@@ -65,22 +67,24 @@ export const CustomGeographies = ({ geography }) => {
         <g
           key={i}
           style={{
-            transform: `translateX(${i % 2 == 0 ? geographyWidth + 1 : -geographyWidth - 1}px)`,
+            transform: `translateX(${
+              i % 2 == 0 ? geographyWidth + 1 : -geographyWidth - 1
+            }px)`,
           }}
         >
           {geographies &&
             geographies.length > 0 &&
             geographies.map((geo) => {
-            return (
-              <path
-                key={`${i}_${geo.rsmKey}`}
-                d={geo.svgPath}
-                style={{
-                  fill: "#A78A7F"
-                }}
-              />
-            );
-          })}
+              return (
+                <path
+                  key={`${i}_${geo.rsmKey}`}
+                  d={geo.svgPath}
+                  style={{
+                    fill: "#A78A7F",
+                  }}
+                />
+              );
+            })}
         </g>
       ))}
       <g ref={geographyRef}>
@@ -92,8 +96,11 @@ export const CustomGeographies = ({ geography }) => {
                 onClick={onGeographyClick}
                 key={geo.rsmKey}
                 geo={geo}
-                selected={selected != "" && selected === geo.properties?.NAME_EN}
-                setSelectedRef={setSelectedRef} />
+                selected={
+                  selected != "" && selected === geo.properties?.NAME_EN
+                }
+                setSelectedRef={setSelectedRef}
+              />
             </>
           ))}
       </g>

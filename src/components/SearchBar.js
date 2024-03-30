@@ -16,13 +16,16 @@ export default function SearchBar() {
   const [searchResults, setSearchResults] = useState([]);
 
   const changeQueryCallback = useMemo(
-    () => debounce((query, names) => {
-      const filteredNames = query 
-      ? names.filter((v) => v.toLowerCase().includes(query.toLowerCase())) 
-      : names;    
+    () =>
+      debounce((query, names) => {
+        const filteredNames = query
+          ? names.filter((v) => v.toLowerCase().includes(query.toLowerCase()))
+          : names;
 
-      setSearchResults(filteredNames);
-    }, 200), []);
+        setSearchResults(filteredNames);
+      }, 200),
+    [],
+  );
 
   React.useEffect(() => {
     if (query.length === 0) {
@@ -30,14 +33,14 @@ export default function SearchBar() {
       return;
     }
     changeQueryCallback(query, names);
-  }, [query, changeQueryCallback])
+  }, [query, changeQueryCallback]);
 
   // reset state whenever a new selection is made
   React.useEffect(() => {
     setSearchResults([]);
     setQuery("");
-  }, [selected])
-  
+  }, [selected]);
+
   return (
     <div className="sidebar">
       <input
@@ -46,10 +49,9 @@ export default function SearchBar() {
         placeholder="Enter a country..."
       />
 
-      {query.length !== 0 && searchResults.length > 0 && 
+      {query.length !== 0 && searchResults.length > 0 && (
         <menu className="country-list">
-        
-        {searchResults.map((name, i) => (
+          {searchResults.map((name, i) => (
             <li
               key={"array".concat(i)}
               className="option"
@@ -59,7 +61,7 @@ export default function SearchBar() {
             </li>
           ))}
         </menu>
-      }
+      )}
     </div>
   );
 }

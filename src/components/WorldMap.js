@@ -3,8 +3,7 @@ import { ComposableMap } from "react-simple-maps";
 import { WorldMapInfo } from "./WorldMapInfo";
 import { CustomGeographies } from "./CustomGeographies";
 
-export const GEO_URL =
-  "data.json";
+export const GEO_URL = "data.json";
 
 export default function WorldMap() {
   return (

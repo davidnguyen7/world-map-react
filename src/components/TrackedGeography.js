@@ -4,7 +4,12 @@ import { Geography } from "react-simple-maps";
 
 export const MotionGeography = motion(Geography);
 
-export const TrackedGeography = ({ geo, onClick, selected, setSelectedRef }) => {
+export const TrackedGeography = ({
+  geo,
+  onClick,
+  selected,
+  setSelectedRef,
+}) => {
   const geoRef = React.useRef();
 
   React.useEffect(() => {
@@ -20,7 +25,7 @@ export const TrackedGeography = ({ geo, onClick, selected, setSelectedRef }) => 
     <motion.path
       ref={geoRef}
       key={geo.rsmKey}
-      d={geo.svgPath} 
+      d={geo.svgPath}
       onClick={() => onClick(geo)}
       className={"geo-svg"}
       initial={{
@@ -31,13 +36,13 @@ export const TrackedGeography = ({ geo, onClick, selected, setSelectedRef }) => 
       }}
       animate={{
         fill: selected ? "#8C1C13" : "#735751",
-        stroke: selected ? "#BF4342" : "#A78A7F"
+        stroke: selected ? "#BF4342" : "#A78A7F",
       }}
       whileHover={{
         fill: "#A78A7F",
         height: 1.25,
-      }} 
+      }}
       tabIndex={-1}
-      />
+    />
   );
 };

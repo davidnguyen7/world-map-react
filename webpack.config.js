@@ -26,10 +26,8 @@ module.exports = {
       },
     }),
     new CopyPlugin({
-      patterns: [
-        {from: "public", to: ""}
-      ]
-    })
+      patterns: [{ from: "public", to: "" }],
+    }),
   ],
   module: {
     rules: [
@@ -45,13 +43,8 @@ module.exports = {
       },
       {
         test: /.s[ac]ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
-      
     ],
   },
 };

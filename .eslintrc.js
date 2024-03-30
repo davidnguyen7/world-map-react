@@ -3,10 +3,6 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "prettier",
-  ],
-  files: ['src/**/*.js'],
+  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  files: ["src/**/*.js"],
 };

@@ -1,5 +1,6 @@
 import React from "react";
-const GEOGRAPHY_FETCH_URL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exchars=200&explaintext&titles='; 
+const GEOGRAPHY_FETCH_URL =
+  "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exchars=200&explaintext&titles=";
 
 const cache = new Map();
 setInterval(() => cache.clear(), 50000);
@@ -9,9 +10,7 @@ async function getGeographyInfo(geographyName) {
     return cache.get(geographyName);
   }
   try {
-    let response = await fetch(
-      GEOGRAPHY_FETCH_URL + geographyName
-    );
+    let response = await fetch(GEOGRAPHY_FETCH_URL + geographyName);
 
     if (!response.ok) {
       throw new Error("Failed fetch request to Wikipedia");
@@ -24,20 +23,18 @@ async function getGeographyInfo(geographyName) {
       throw new Error(`Entry for ${geographyName} does not exist in Wikipedia`);
     }
 
-
     let result = data.query.pages[id].extract;
     if (!result) {
-      throw new Error("Extract is empty!")
+      throw new Error("Extract is empty!");
     }
-    cache.set(geographyName, result)
+    cache.set(geographyName, result);
     return result;
   } catch (err) {
     throw new Error(
-      `Failed to fetch geography info for ${geographyName}: ${err}`
+      `Failed to fetch geography info for ${geographyName}: ${err}`,
     );
   }
 }
-
 
 export function useGeographyInfo(geographyName) {
   const [info, setInfo] = React.useState("");
@@ -56,5 +53,5 @@ export function useGeographyInfo(geographyName) {
       });
   }, [geographyName]);
 
-  return {info, error};
+  return { info, error };
 }
